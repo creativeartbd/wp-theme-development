@@ -4,6 +4,21 @@
         <div class="col-md-12">
         <h1>Hello front-page Page c.</h1>
         <?php 
+
+        var_dump(get_page_template_slug());
+        echo '<hr/>';
+
+        echo 'Is Page Template - '; 
+        var_dump(is_page_template());
+        echo '<hr/>';
+
+        echo '<pre>';
+        print_r( wp_get_theme()->get_page_templates() );
+        echo '</pre>';
+
+        echo '<hr/>';
+        echo 'page template is = ' . get_page_template();
+        echo '<hr/>';
         var_dump(is_post_type_archive('post'));
         echo get_post_type();
         var_dump(post_type_exists('c'));
