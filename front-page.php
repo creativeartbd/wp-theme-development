@@ -3,8 +3,8 @@
     <div class="row">
         <div class="col-md-12">
         <h1>Hello front-page Page c.</h1>
-        <?php 
-
+        
+        <?php
         var_dump(get_page_template_slug());
         echo '<hr/>';
 

@@ -1,4 +1,41 @@
 <?php 
+// set default headerimage
+register_default_headers( array(
+    'default'   => array(
+        'url'   =>  get_template_directory_uri() . '/assets/images/default.jpeg',
+        'thumbnail_url' =>  get_template_directory_uri() . '/assets/images/default.jpeg',
+        'description'   =>  'default',
+    ),
+    'alternative'   =>  array(
+        'url'   =>  get_template_directory_uri() . '/assets/images/alternative.jpeg',
+        'thumbnail_url' =>  get_template_directory_uri() . '/assets/images/alternative.jpeg',
+        'description'   =>  'alternative',
+    )
+) );
+
+add_action( 'after_setup_theme', 'themename_custom_header_setup' );
+function themename_custom_header_setup() {
+    $args = array(
+        'default-image'      => get_template_directory_uri() . '/assets/images/default-banner.png',
+        'default-text-color' => '#000',
+        'header-text'        => true,
+        'width'              => 1000,
+        'height'             => 250,
+        'flex-width'         => true,
+        'flex-height'        => true,
+    );
+    add_theme_support( 'custom-header', $args );
+
+    $defaults = array(
+        'height'    =>  100, 
+        'width' =>  100,
+        'flex-width'    =>  true, 
+        'flex-height'   =>  true,
+        'header_text'   =>  array( 'Site title', 'Site Description' )
+    );
+    add_theme_support( 'custom-logo', $defaults );
+}
+
 
 add_action( 'after_theme_setup', 'shibbir_theme_setup' );
 if( ! function_exists( 'shibbir_theme_setup') ) {
@@ -9,6 +46,11 @@ if( ! function_exists( 'shibbir_theme_setup') ) {
         add_theme_support( 'post-formates', array(
             'aside', 'gallery', 'quote', 'image', 'video'
         ) );
+        // add_theme_support( 'custom-header', array( 
+        //     'default-text-color'    =>  '#000',
+        //     'width' =>  1000,
+        //     'height'    =>  250, 
+        // ) );
 
         // Register menu
         register_nav_menus(array(
