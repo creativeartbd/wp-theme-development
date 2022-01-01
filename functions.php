@@ -1,4 +1,46 @@
 <?php 
+add_filter('nav_menu_css_class', 'add_class_li_element', 1, 3);
+function add_class_li_element($classes, $item, $args) {
+    $classes[] = 'nav-item';
+    return $classes;
+}
+
+add_filter( 'nav_menu_link_attributes', 'add_class_to_anchor', 10, 3 );
+function add_class_to_anchor( $atts, $item, $args ) {
+    $class = 'nav-link'; // or something based on $item
+    $atts['class'] = $class;
+    return $atts;
+}
+
+// Registter a navmenu
+add_action('init', 'register_my_menu');
+function register_my_menu() {
+    register_nav_menus(array(
+        'header-menu'   =>  __('Header Menu', 'shibbir'),
+        'footer-menu'   =>  __('Footer menu', 'shibbir'),
+    ));
+}
+
+// Create a new Widgets
+if( file_exists( dirname( __FILE__) . '/register_widgets.php' ) ) {
+    require_once dirname( __FILE__ ) . '/register_widgets.php';
+}
+
+// Register a side
+add_action( 'widgets_init', 'shibbir_register_widget' );
+function shibbir_register_widget() {
+    register_sidebar( array(
+        'id'    =>  'right-sidebare',
+        'name'  =>  __('Right Sidebar', 'shibbir' ),
+        'desciption'    =>  __('Right sidebar content', 'shibbir'), 
+        'before_widget' =>  '<div id="%1$s" class="widget %2$s">',
+        'after_widget'  =>  '</div>',
+        'before_title'  => '<h3 class="widget-title">',
+        'after_title'   => '</h3>',
+    ) );
+}
+
+
 // set default headerimage
 register_default_headers( array(
     'default'   => array(
@@ -34,6 +76,10 @@ function themename_custom_header_setup() {
         'header_text'   =>  array( 'Site title', 'Site Description' )
     );
     add_theme_support( 'custom-logo', $defaults );
+    
+    add_theme_support( 'post-formats', array(
+        'aside', 'gallery'
+    ));
 }
 
 

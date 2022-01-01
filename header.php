@@ -17,20 +17,20 @@
         $custom_logo_id = get_theme_mod( 'custom_logo' );
         $logo = wp_get_attachment_image_src( $custom_logo_id, 'full' );
 
-        echo '<pre>'; 
-            echo print_r( $logo ); 
-        echo '</pre>';
+        // echo '<pre>'; 
+        //     echo print_r( $logo ); 
+        // echo '</pre>';
 
 
         if( has_custom_logo() ) {
             //echo get_custom_logo();
-            echo "<img src='".$logo[0]."' width='".$logo[1]."' >";
+            echo "<a href='".home_url('/')."'><img src='".$logo[0]."' width='".$logo[1]."' ></a>";
         }
 
-        echo '<pre>'; 
-            echo print_r( get_theme_mod( 'custom-logo' ) ); 
-        echo '</pre>';
-        echo '<hr/>';
+        // echo '<pre>'; 
+        //     echo print_r( get_theme_mod( 'custom-logo' ) ); 
+        // echo '</pre>';
+        // echo '<hr/>';
 
 
         if(has_custom_header()) {
@@ -40,10 +40,17 @@
             echo "<img src='$header_image' width='$header_image_width' height='$header_image_height' class='img-fluid'>";
         }
 
-        echo '<pre>'; 
-            echo print_r( get_custom_header() ); 
-        echo '</pre>';
+        // echo '<pre>'; 
+        //     echo print_r( get_custom_header() ); 
+        // echo '</pre>';
         echo '<hr/>';
+
+        wp_nav_menu(array(
+            'theme-location'    =>  'header-menu',
+            'menu_class'    =>  'navbar-nav mr-auto',
+            'container' =>   'nav',
+            'container_class'   =>  'navbar navbar-expand-lg navbar-light bg-light',
+        ))
         ?>
         </div>
     </div>
