@@ -1,4 +1,16 @@
 <?php 
+// Customizer
+if( file_exists( dirname( __FILE__ ) . '/customizer.php' ) ) {
+    require_once dirname( __FILE__ ) . '/customizer.php';
+}
+// add link to all post thumbnail
+add_filter( 'post_thumbnail_html', 'shibbir_post_thumbnail_link', 10, 3 );
+function shibbir_post_thumbnail_link( $html, $post_id, $post_image_id ) {
+    $permalink = get_permalink( $post_id );
+    $html = "<a href='$permalink'>$html</a>";
+    return $html;
+}
+
 add_filter('nav_menu_css_class', 'add_class_li_element', 1, 3);
 function add_class_li_element($classes, $item, $args) {
     $classes[] = 'nav-item';
@@ -80,15 +92,21 @@ function themename_custom_header_setup() {
     add_theme_support( 'post-formats', array(
         'aside', 'gallery'
     ));
+
+    load_theme_textdomain('shibbir', get_template_directory_uri() . '/languages');
 }
 
+// set post thumbanil site
+set_post_thumbnail_size(250, 150, true);
+
+// Add feature image support
+add_theme_support( 'post-thumbnails' );
 
 add_action( 'after_theme_setup', 'shibbir_theme_setup' );
 if( ! function_exists( 'shibbir_theme_setup') ) {
     function shibbir_theme_setup () {
 
         add_theme_support( 'automatic-feed-links' );
-        add_theme_support( 'post-thumbnails' );
         add_theme_support( 'post-formates', array(
             'aside', 'gallery', 'quote', 'image', 'video'
         ) );

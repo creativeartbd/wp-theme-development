@@ -5,6 +5,9 @@
             <h1>Hello front-page Page c.</h1>
             
             <?php
+            echo get_theme_mod('shibbir_service_heading');
+            echo '<hr/>';
+
             echo "sticky post is " . print_r( get_option( 'sticky_posts') );
             echo '<hr/>';
 
@@ -44,7 +47,18 @@
                         echo '</pre>';
                     }
                 }
+                
             }
+
+            echo '<hr/>';
+            // posts_nav_link();
+            the_posts_pagination( array(
+                'mid_size'  => 2,
+                'prev_text' => __( 'Back', 'textdomain' ),
+                'next_text' => __( 'Onward', 'textdomain' ),
+            ) ); 
+            echo '<hr/>';
+
 
             $new_query = new WP_Query('category_name=sport');
 

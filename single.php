@@ -10,6 +10,12 @@
                     echo "<div class='$wrapper_class'>";
                         the_post();
                         echo '<h3>'. get_the_title() . '</h3>';
+                        if( has_post_thumbnail() ) {
+                            the_post_thumbnail('medium', array(
+                                'class' =>  'alignright'
+                            ));
+                        }
+
                         the_content();
                         the_category(', ');
                     echo "</div>";
