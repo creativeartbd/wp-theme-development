@@ -19,3 +19,11 @@ Use it to make something cool, have fun, and share what you've learned with othe
 body {
     background-color : #ddd;
 }
+
+.front-page-h1{
+    color : green;
+}
+
+li.product-category.product {
+    display: inline-block;
+}

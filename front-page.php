@@ -2,11 +2,13 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8">
-            <h1>Hello front-page Page c.</h1>
+            <h1 class="front-page-h1">Hello front-page Page c.</h1>
             
             <?php
-            echo get_theme_mod('shibbir_service_heading');
-            echo '<hr/>';
+            if( get_theme_mod('shibbir_display_heading', 1)) {
+                echo get_theme_mod('shibbir_service_heading');
+                echo '<hr/>';
+            }
 
             echo "sticky post is " . print_r( get_option( 'sticky_posts') );
             echo '<hr/>';

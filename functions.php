@@ -1,4 +1,14 @@
 <?php 
+// =================
+// woocommece
+//=================
+if( class_exists( 'WooCommerce' ) ) {
+    require_once dirname( __FILE__ ) . '/inc/woocommerce.php';
+}
+// =================
+// woocommece
+//=================
+
 // Customizer
 if( file_exists( dirname( __FILE__ ) . '/customizer.php' ) ) {
     require_once dirname( __FILE__ ) . '/customizer.php';
@@ -93,7 +103,24 @@ function themename_custom_header_setup() {
         'aside', 'gallery'
     ));
 
+    add_theme_support( 'title-tag' );
+
     load_theme_textdomain('shibbir', get_template_directory_uri() . '/languages');
+
+    add_theme_support( 'woocommerce', array(
+        'thumbnail_image_width' =>  150,
+        'single_image_width'    =>  150,
+        'product_grid'  =>  array(
+            'default_rows'  =>  2,
+            'min_rows'  => 2,
+            'max_rows'  =>  4,
+            'default_columns' => 1,
+            'min_columns'     => 4,
+            'max_columns'     => 4,
+        )
+    ) );
+
+
 }
 
 // set post thumbanil site
@@ -132,9 +159,23 @@ add_action( 'wp_enqueue_scripts', 'add_theme_scripts' );
 function add_theme_scripts () {
     // load all style files
     wp_enqueue_style( 'style', get_stylesheet_uri() );
+    $custom_css_header_color = get_theme_mod('shibbir_html_color_settings', 'green');
+    $custom_heading_css = <<<EOD
+    .front-page-h1{
+        color : {$custom_css_header_color};
+    }
+EOD;
+    wp_add_inline_style( 'style', $custom_heading_css);
+
     wp_enqueue_style( 'bootstrap', '//cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' );
     // load all javascript files
     wp_enqueue_script( 'main', get_template_directory_uri() . '/assets/main.js', array('jquery'), 1.0, true );
+}
+
+// Enqueue Customize
+add_action( 'customize_preview_init', 'shibbir_customize_preview' );
+function shibbir_customize_preview() {
+    wp_enqueue_script( 'customize', get_theme_file_uri('/assets/js/customize.js'), array('jquery', 'customize-preview'), time(), true);
 }
 
 if ( ! isset ( $content_width) ) {
@@ -152,3 +193,6 @@ if ( ! isset ( $content_width) ) {
 // function frontpage_template_filter( $templates ) {
 //     print_r( $templates );
 // }
+
+// Disabled woocommece style
+// add_filter( 'woocommerce_enqueue_styles', '__return_false' );
